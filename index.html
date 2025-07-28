@@ -1,0 +1,334 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vikas Chandra Gupta, Ph.D. - Expert in Biotechnology, Environmental Sustainability, and ESG">
+    <title>Vikas Chandra Gupta, Ph.D. - Professional Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        section {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-green-600 text-white fixed top-0 w-full shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold">Vikas Chandra Gupta, Ph.D.</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#home" class="hover:text-gray-200">Home</a>
+                    <a href="#about" class="hover:text-gray-200">About</a>
+                    <a href="#education" class="hover:text-gray-200">Education</a>
+                    <a href="#research" class="hover:text-gray-200">Research</a>
+                    <a href="#skills" class="hover:text-gray-200">Skills</a>
+                    <a href="#patents" class="hover:text-gray-200">Patents</a>
+                    <a href="#projects" class="hover:text-gray-200">Projects</a>
+                    <a href="#consultancy" class="hover:text-gray-200">Consultancy</a>
+                    <a href="#entrepreneurship" class="hover:text-gray-200">Entrepreneurship</a>
+                    <a href="#certifications" class="hover:text-gray-200">Certifications</a>
+                    <a href="#supervision" class="hover:text-gray-200">Supervision</a>
+                    <a href="#lectures" class="hover:text-gray-200">Lectures</a>
+                    <a href="#books" class="hover:text-gray-200">Books</a>
+                    <a href="#publications" class="hover:text-gray-200">Publications</a>
+                    <a href="#contact" class="hover:text-gray-200">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 text-white">
+        <div class="text-center max-w-3xl mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Vikas Chandra Gupta, Ph.D.</h2>
+            <p class="text-xl mb-6">Research Domain Expert in Biotechnology, Environmental Sustainability, and ESG</p>
+            <p class="text-lg mb-6">Navchetnna Agro Centre-Producer Company Limited, Mirzapur, Uttar Pradesh, India</p>
+            <a href="#contact" class="bg-white text-green-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-200">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Professional Summary</h2>
+            <p class="text-lg leading-relaxed">
+                I am a Research Domain Expert at Navchetnna Agro Centre-Producer Company Limited, Mirzapur, with over 15 years of experience in circular bioeconomy and sustainability. My expertise lies in bioethanol production from lignocellulosic agro-waste, biochar generation for carbon sequestration and soil rejuvenation, and biomass valorization for clean energy and resource recovery. I lead initiatives to design decentralized, low-carbon bioprocessing systems that enhance rural livelihoods while aligning with carbon credit frameworks and ESG-aligned development goals, supporting India’s transition to a green economy. Previously, I led government- and industry-funded research projects on enzymatic hydrolysis, microbial fermentation, and phytoremediation at IILM University. I have published over 45 research papers and book chapters with global publishers like Springer and Taylor & Francis.
+            </p>
+            <p class="text-lg mt-4"><strong>Career Objective:</strong> Seeking a dynamic role in sustainability and ESG innovation to apply my expertise in biotechnology, circular bioeconomy, and low-carbon solutions to drive impactful change and contribute to organizational goals.</p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Education</h2>
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-semibold">Ph.D. in Biotechnology, 2025</h3>
+                    <p>Dr. A.P.J. Abdul Kalam Technical University, Lucknow, Uttar Pradesh</p>
+                    <p>Thesis: Process Optimization of Bioethanol Production from Lignocellulosic Waste</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">M.Tech. in Biotechnology, 2005</h3>
+                    <p>MITS, Gwalior (RGGV Bhopal), Madhya Pradesh</p>
+                    <p>Thesis: Biochemical Characterization of Arbuscular Mycorrhizal Fungus (AMF)</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">B.Tech. in Biotechnology, 2002</h3>
+                    <p>Specialization: Industrial Microbiology</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Interests Section -->
+    <section id="research" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Research Interests</h2>
+            <ul class="list-disc list-inside text-lg leading-relaxed">
+                <li>Lignocellulosic biomass valorization</li>
+                <li>Bioprocess optimization</li>
+                <li>Circular bioeconomy</li>
+                <li>Phytoremediation</li>
+                <li>Hydroponics</li>
+                <li>Low-carbon bioreactor design</li>
+                <li>Industrial effluent treatment</li>
+                <li>Waste valorization</li>
+                <li>GHG emissions protocol</li>
+                <li>ESG strategy</li>
+                <li>Net zero emission</li>
+                <li>Sustainability analytics</li>
+                <li>Life Cycle Assessment (LCA)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Technical & Sustainability Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold">Sustainability & ESG Reporting</h3>
+                    <p>GHG Protocol, Life Cycle Assessment (LCA), Circular economy principles</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Data Analysis & Visualization</h3>
+                    <p>Minitab 17.0, DOE, MS Excel, MS Word, PowerPoint</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Research & Process Engineering</h3>
+                    <p>Bioprocess engineering, Phytoremediation, Pilot-scale deployments</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Technical Proposal Writing & Documentation</h3>
+                    <p>Research reports, project proposals (government & industry), ESG disclosures, patent drafts</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Project & Stakeholder Management</h3>
+                    <p>Led interdisciplinary teams, collaborated with government agencies, private firms (e.g., Harihar Energy), and academic institutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patents Section -->
+    <section id="patents" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Patents</h2>
+            <div class="space-y-6">
+                <div>
+                    <p><strong>2025 (Granted):</strong> Soil-less Cultivation Device with Integrated Nutrient Recycling, Patent No. 444047/01, Government of India</p>
+                </div>
+                <div>
+                    <p><strong>2024 (Filed):</strong> Hydroponic Plant Water Cultivating System with Oxygen Infuser, Application No. 202241/01, IILM University, Greater Noida</p>
+                </div>
+                <div>
+                    <p><strong>2023 (Filed):</strong> Media and Systems for Soilless Phytoremediation by Sorghum bicolor Plant System, Application No. IPO 202201/0</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Research Projects</h2>
+            <div class="space-y-6">
+                <div>
+                    <p><strong>2023:</strong> Development of Commercial Hydroponics Setup for Industrial Effluent Treatment Using Microbial Plant with Phytoremediation Property (Principal Investigator)</p>
+                </div>
+                <div>
+                    <p><strong>2017-2024:</strong> Established Pilot-Scale Hydroponics Facility at IILM University with in-house research grant and CSTUP funding for sustainable cultivation of spinach, lettuce, capsicum, tomato, and eggplant, yielding ~80 kg from a 150 sq. ft. vertical setup</p>
+                </div>
+                <div>
+                    <p><strong>TEQIP-CRIP, CSTUP, AICTE-ATAL:</strong> Coordinated successful execution of funded projects resulting in patents, product development, and sustainable technology demonstrations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industrial Consultancy Section -->
+    <section id="consultancy" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Industrial Consultancy</h2>
+            <div class="space-y-6">
+                <p><strong>2021-2024:</strong> Research Consultant with Harihar Energy Pvt Ltd, Greater Noida, on 2G Ethanol Production Technology (Commercial Scale)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Incubation and Entrepreneurship Section -->
+    <section id="entrepreneurship" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Incubation and Entrepreneurship</h2>
+            <div class="space-y-6">
+                <p><strong>Coordinator - Entrepreneurship Cell:</strong> Played a key role in conceptualizing and establishing a skill-based research and incubation cell under Startin’UP (Government of Uttar Pradesh), focusing on sustainable technologies, circular bioeconomy, and entrepreneurship in clean energy, soilless agriculture, and health-tech innovation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Professional Certifications</h2>
+            <div class="space-y-6">
+                <p>Introduction to Research, IIT Madras (1GEOAS1: 60O77)</p>
+                <p>Sustainable Engineering Concepts and Life Cycle Analysis, IIT Kharagpur (1GEOOS3: 60O7)</p>
+                <p>Biotechnology and Intellectual Property Law, Rajiv Gandhi School of Intellectual Property Law, IIT Kharagpur</p>
+                <p>AICTE-ATAL Academy FDP Grant 2019-20: Conducted Online FDP on “Waste Technology: Emerging Paradigms in Waste Management Technology” at IILM CET, Greater Noida (Funding: Rs. 9,00,000)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Supervision Section -->
+    <section id="supervision" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Research Supervision</h2>
+            <p>Supervised 10 M.Tech. and 40 B.Tech. student research projects in Environmental Biotechnology, Sustainability, Bioenergy, Hydroponics, Bioethanol, Process Modeling, and Biochemical Engineering.</p>
+        </div>
+    </section>
+
+    <!-- Guest Lectures Section -->
+    <section id="lectures" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Invited Guest Lectures</h2>
+            <div class="space-y-6">
+                <p><strong>2024:</strong> From Waste to Worth: Sustainable Bioconversion for a Clean and Green Campus, Sharda University, Greater Noida, 21 June 2024</p>
+                <p><strong>2023:</strong> Lignocellulosic Bioethanol from Agricultural Crop Residues, AKONE, Nashik</p>
+                <p><strong>2022:</strong> 2G Ethanol: Innovation in Biofuel Production, Amity University, Noida</p>
+                <p><strong>2019:</strong> Biotechnology for Biofuels: Challenges and Opportunities, IILM College of Engineering & Technology, Greater Noida</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Publications Section -->
+    <section id="books" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Book Publications</h2>
+            <p><strong>2025:</strong> Sustainable Ethanol Production from Lignocellulosic Biomass - Process Engineering and Innovation, Springer Nature (Final draft to be submitted by Aug. 2025). Collaborated with international biofuel experts from University of Technology and Applied Sciences Sur, Oman, ICAR New Delhi, TERI, Emory University, USA, and University of Delhi.</p>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Selected Research Publications</h2>
+            <div class="space-y-6">
+                <p>Prasad S, Gupta VC, Singh M. 2025. Diverse Biomass Feedstocks: Availability, Logistics, and Sustainable Energy Potential. In Circular Economy: Applications for Water Remediation. CRC Press.</p>
+                <p>Prasad S, Gupta VC, et al. 2025. Alternate Use of Sugarcane Products and By-products for Bioethanol Production. In Input Use Efficiency for Food and Environmental Security. Springer.</p>
+                <p>Gupta VC, Singh M, Prasad S, Mishra BN. 2024. Optimized Yield of Fermentable Sugar from Rice Straw Chemical Hydrolysis. Research Journal of Chemistry and Environment. <a href="https://doi.org/10.253/202/1/p/107/0114" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Prasad S, Gupta VC. 2024. Circular Economy on Utilization of Wastewater for Biomass-Process. In Circular Economy: Applications for Water Remediation. CRC Press.</p>
+                <p>Gupta VC, Singh M, Prasad S, Mishra BN. 2023. Minimization of Inhibitor Generation in Rice Straw Hydrolysate. Agriculture, 13(7). <a href="https://doi.org/10.3390/Agriculture13071431" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Gupta VC, et al. 2023. An Overview of Bioethanol Production from Lignocellulosic Biomass. In Encyclopedia of Green Materials. Springer Nature. <a href="https://doi.org/10.1007/978-981-16-4921-2_108-1" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Gupta VC, et al. 2023. Bioremediation Strategies for Industrial Wastewater Treatment. In Encyclopedia of Green Materials. Springer Nature. <a href="https://doi.org/10.1007/978-981-16-4921-9_38-1" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Smithi Narayan S, Gupta VC, et al. 2022. Green Synthesis of Carbon-Based Nanomaterials. In Encyclopedia of Green Materials. Springer. <a href="https://doi.org/10.1007/978-981-16-4921-9_40-1" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Prasad S, Gupta VC, et al. 2022. Ethanol Production from Sugarcane: An Overview. In Input Use Efficiency for Food and Environmental Security. Springer. <a href="https://doi.org/10.1007/978-981-16-4921-9_22-1" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Gupta VC, et al. 2022. Sustainable and Economical Approaches in Utilizing Agricultural Solid Waste for Bioethanol Production. In Handbook of Solid Waste Management. Springer. <a href="https://doi.org/10.1007/978-981-15-7522-9_40-1" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Yadav F, Gupta VC. 2021. Comparative Study on Biosorption of Arsenite and Arsenate. International Journal of Engineering, Science and Technology, 13(4), 158-170. <a href="https://doi.org/10.4314/ijest.v13i1.245" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Gupta VC, et al. 2019. Comparative Fermentable Sugar Yield from Pre-treated Rice Straw. Biosebiotech Res Comm, 12(4), 092-099. <a href="http://dx.doi.org/10.21786/bbrc/12.4/432" class="text-green-600 hover:underline">DOI</a></p>
+                <p>Gupta VC, et al. 2018. Preliminary Studies of Vegetable Plants Growth Index Under Controlled Condition of Soilless System. Trends in Biosciences, 3:288-73.</p>
+                <p>Sharma N, Gupta VC. 2012. Batch Biodegradation of Phenol of Paper and Pulp Effluent by Aspergillus niger. International Journal of Chemical Engineering and Application, 1(1), 162-160.</p>
+                <p><strong>Total:</strong> Over 45 publications including book chapters and conference papers with Springer, Taylor & Francis, and others.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-8 text-center">Contact Me</h2>
+            <div class="text-center">
+                <p class="text-lg">Email: <a href="mailto:viky18@gmail.com" class="text-green-600 hover:underline">viky18@gmail.com</a></p>
+                <p class="text-lg">Phone: <a href="tel:+9711257845" class="text-green-600 hover:underline">+9711257845</a></p>
+                <p class="text-lg">Connect: <a href="https://scholar.google.com" class="text-green-600 hover:underline">Google Scholar</a> | <a href="https://linkedin.com" class="text-green-600 hover:underline">LinkedIn</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-green-600 text-white py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Vikas Chandra Gupta. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Smooth Scroll Script -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
